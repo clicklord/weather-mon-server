@@ -1,0 +1,28 @@
+{
+    "compilerOptions": {
+      "module": "commonjs",
+      "declaration": true,
+      "removeComments": true,
+      "target": "es2020",
+      "lib": ["es2017"],
+      "sourceMap": true,
+      "outDir": "./dist",
+      "incremental": true,
+      
+      "noImplicitAny": false,
+      "strictNullChecks": true,
+      "strictFunctionTypes": true,
+      "noImplicitThis": true,
+      "noImplicitReturns": true,
+      "noUnusedLocals": true,
+      "noFallthroughCasesInSwitch": true,
+      "strictPropertyInitialization": false,
+  
+      //add decorator support
+      "emitDecoratorMetadata": true,
+      "experimentalDecorators": true
+    },
+    "compileOnSave": true,
+    "include": ["./src/**/*.tsx", "./src/**/*.ts"],
+    "exclude": ["node_modules", "dist"]
+  }
