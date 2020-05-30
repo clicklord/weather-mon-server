@@ -8,7 +8,7 @@ export class LocationService {
   constructor(locationRepository?: LocationRepository) {
     this.locationRepository = locationRepository ?? new LocationRepository();
   }
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
   async createLocationCity(
     cityName: string,
     descriptionCity: string,
@@ -21,6 +21,26 @@ export class LocationService {
       lat,
       lon
     );
+  }
+
+  async updateLocationCity(
+    cityName: string,
+    descriptionCity: string,
+    lat: number,
+    lon: number
+  ): Promise<number> {
+    const updateResult =  await this.locationRepository.updateLocationCityByName(
+      cityName,
+      descriptionCity,
+      lat,
+      lon
+    );
+
+    if (!updateResult) return 0;
+
+    const updatedCount = updateResult.nModified ?? 0;
+
+    return updatedCount;
   }
 
   async getLocationCities(

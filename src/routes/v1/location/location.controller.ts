@@ -19,12 +19,14 @@ export class LocationController {
     try {
 
       if (!req.body.name) throw new BadRequest('Invalid body params');
+
       const name = req.body.name ?? '';
       const description= req.body.description ?? '';
       const rawLat = req.body.lat ?? NaN;
       const rawLon= req.body.lon ?? NaN;
       const lat = Number(rawLat);
       const lon = Number(rawLon);
+
       if ( isNaN(lat) || isNaN(lon)) {
         throw new BadRequest('Invalid body params');
       }
@@ -34,6 +36,33 @@ export class LocationController {
   
       res.json({
         result: result,
+      });
+    } catch (err) {
+      next(err);
+    }
+  }
+
+  public editLocationCity = async (
+    req: Request, res: Response, next: express.NextFunction): Promise<void> => {
+    try {
+
+      if (!req.body.name) throw new BadRequest('Invalid body params');
+
+      const name = req.body.name ?? '';
+      const description= req.body.description ?? '';
+      const rawLat = req.body.lat ?? NaN;
+      const rawLon= req.body.lon ?? NaN;
+      const lat = Number(rawLat);
+      const lon = Number(rawLon);
+
+      if ( isNaN(lat) || isNaN(lon)) {
+        throw new BadRequest('Invalid body params');
+      }
+      const updatedCount = 
+        await this.locationService.updateLocationCity(name, description, lat, lon);
+
+      res.json({
+        result: updatedCount ? true : false,
       });
     } catch (err) {
       next(err);

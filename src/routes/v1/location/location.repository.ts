@@ -1,5 +1,5 @@
 import LocationCity, {LocationCityModel} from '../../../database/models/location-city';
-import { PaginateResult } from 'mongoose';
+import { PaginateResult, Query } from 'mongoose';
 
 export class LocationRepository {
 
@@ -19,6 +19,30 @@ export class LocationRepository {
         }
       });
       return await locationCity.save();
+    } catch (error) {
+      // TODO: add error logging
+      console.log(error);
+      return null;
+    }
+  }
+
+  async updateLocationCityByName(
+    cityName: string,
+    descriptionCity: string,
+    lat: number,
+    lon: number
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  ): Promise<Query<any> | null> {
+    try {
+      return await LocationCity.updateOne({name: cityName},
+        {
+          name: cityName,
+          description: descriptionCity,
+          location: {
+            type: 'Point',
+            coordinates: [lon, lat]
+          }
+        });
     } catch (error) {
       // TODO: add error logging
       console.log(error);
