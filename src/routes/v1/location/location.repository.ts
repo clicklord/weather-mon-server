@@ -60,6 +60,17 @@ export class LocationRepository {
     }
   }
 
+  async deleteLocationCityByName(name: string): Promise<number | null> {
+    try {
+      const deleteResult =  await LocationCity.deleteOne({name});
+      return deleteResult.deletedCount ?? null;
+    } catch (error) {
+      // TODO: add error logging
+      console.log(error);
+      return null;
+    }
+  }
+
   async getLocationCitiesPaginated(
     page: number,
     limit: number

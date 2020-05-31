@@ -92,4 +92,40 @@ export class LocationController {
       next(err);
     }
   }
+
+  public getLocationCity = async (
+    req: Request, res: Response, next: express.NextFunction): Promise<void> => {
+    try {
+      const cityName = req.params['name'] ?? '';
+
+      if (!cityName) throw new BadRequest('Invalid query params');
+
+      const findResult = await this.locationService.getLocationCity(cityName);
+
+      res.json({
+        city: findResult,
+      });
+    } catch (err) {
+      next(err);
+    }
+  }
+
+  public deleteLocationCity = async (
+    req: Request, res: Response, next: express.NextFunction): Promise<void> => {
+    try {
+      const cityName = req.params['name'] ?? '';
+
+      if (!cityName) throw new BadRequest('Invalid query params');
+
+      const deleteCount = await this.locationService.deleteLocationCity(cityName);
+
+      if (deleteCount === null) throw new InternalError('Error while deleting city');
+
+      res.json({
+        deleted: deleteCount,
+      });
+    } catch (err) {
+      next(err);
+    }
+  }
 }

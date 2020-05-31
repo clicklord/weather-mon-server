@@ -53,4 +53,12 @@ export class LocationService {
 
     return {cities: findResult.docs ?? [], total:findResult.total};
   }
+
+  async getLocationCity(cityName: string): Promise<LocationCityModel | null> {
+    return await this.locationRepository.getLocationCityByName(cityName);
+  }
+
+  async deleteLocationCity(cityName: string): Promise<number | null> {
+    return await this.locationRepository.deleteLocationCityByName(cityName);
+  }
 }
