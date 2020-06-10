@@ -8,6 +8,8 @@ export interface LocationCityModel extends mongoose.Document {
     type: string;
     coordinates: number[];
   };
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 const LocationCitySchema: mongoose.Schema = new mongoose.Schema({

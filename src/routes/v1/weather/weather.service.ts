@@ -1,16 +1,16 @@
-import { WeatherRepository } from './weather.repository';
+import { WeatherProviderRepository } from '../../../repositories/weather-provider.repository';
 import { LocationRepository } from '../location/location.repository';
 
 export class WeatherService {
 
-  private weatherRepository: WeatherRepository;
+  private weatherProviderRepository: WeatherProviderRepository;
   private locationRepository: LocationRepository;
 
   constructor(
-    weatherRepository?: WeatherRepository,
+    weatherProviderRepository?: WeatherProviderRepository,
     locationRepository?: LocationRepository
   ) {
-    this.weatherRepository = weatherRepository ?? new WeatherRepository();
+    this.weatherProviderRepository = weatherProviderRepository ?? new WeatherProviderRepository();
     this.locationRepository = locationRepository ?? new LocationRepository();
   }
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -20,12 +20,18 @@ export class WeatherService {
 
     if (!foundCity) return null;
 
-    return await this.weatherRepository.getWeatherRealtimeByCoordinates(
+    return await this.weatherProviderRepository.getWeatherRealtimeByCoordinates(
       foundCity.location.coordinates[1] ?? 0,
       foundCity.location.coordinates[0] ?? 0,
       [
         'temp',
-        'o3'
+        'feels_like',
+        'humidity',
+        'wind_speed',
+        'precipitation_type',
+        'precipitation',
+        'visibility',
+        'moon_phase'
       ]
     );
   }

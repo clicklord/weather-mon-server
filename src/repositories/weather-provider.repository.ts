@@ -1,10 +1,10 @@
 import fetch from 'node-fetch';
 import { URLSearchParams } from 'url';
-import { weatherApiKey } from '../../../config';
+import { weatherApiKey } from '../config';
 
-export class WeatherRepository {
+export class WeatherProviderRepository {
   weatherBaseUrl = 'https://api.climacell.co/v3/';
-  defaultUntSystrem = 'si';
+  defaultUnitSystem = 'si';
 
   async getWeatherRealtimeByCoordinates(
     lat: number,
@@ -17,7 +17,7 @@ export class WeatherRepository {
       params.append('apikey', weatherApiKey)
       params.append('lat', lat.toString());
       params.append('lon', lon.toString());
-      params.append('unit_system', this.defaultUntSystrem);
+      params.append('unit_system', this.defaultUnitSystem);
       for (const selectedField of selectedFields) {
         params.append('fields', selectedField);
       }
