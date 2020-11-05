@@ -9,19 +9,21 @@ export class WeatherProviderRepository {
   async getWeatherRealtimeByCoordinates(
     lat: number,
     lon: number,
-    selectedFields: string[]
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    selectedFields: string[],
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ): Promise<any> {
     try {
       const params = new URLSearchParams();
-      params.append('apikey', weatherApiKey)
+      params.append('apikey', weatherApiKey);
       params.append('lat', lat.toString());
       params.append('lon', lon.toString());
       params.append('unit_system', this.defaultUnitSystem);
       for (const selectedField of selectedFields) {
         params.append('fields', selectedField);
       }
-      const response = await fetch(this.weatherBaseUrl + 'weather/realtime?' + params);
+      const response = await fetch(
+        this.weatherBaseUrl + 'weather/realtime?' + params,
+      );
       return await response.json();
     } catch (error) {
       // TODO: add error logging

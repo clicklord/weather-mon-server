@@ -1,13 +1,14 @@
-import LocationCity, {LocationCityModel} from '../../../database/models/location-city';
+import LocationCity, {
+  LocationCityModel,
+} from '../../../database/models/location-city';
 import { PaginateResult, Query } from 'mongoose';
 
 export class LocationRepository {
-
   async createLocationCity(
     cityName: string,
     descriptionCity: string,
     lat: number,
-    lon: number
+    lon: number,
   ): Promise<LocationCityModel | null> {
     try {
       const locationCity = new LocationCity({
@@ -15,8 +16,8 @@ export class LocationRepository {
         description: descriptionCity,
         location: {
           type: 'Point',
-          coordinates: [lon, lat]
-        }
+          coordinates: [lon, lat],
+        },
       });
       return await locationCity.save();
     } catch (error) {
@@ -30,19 +31,21 @@ export class LocationRepository {
     cityName: string,
     descriptionCity: string,
     lat: number,
-    lon: number
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    lon: number,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ): Promise<Query<any> | null> {
     try {
-      return await LocationCity.updateOne({name: cityName},
+      return await LocationCity.updateOne(
+        { name: cityName },
         {
           name: cityName,
           description: descriptionCity,
           location: {
             type: 'Point',
-            coordinates: [lon, lat]
-          }
-        });
+            coordinates: [lon, lat],
+          },
+        },
+      );
     } catch (error) {
       // TODO: add error logging
       console.log(error);
@@ -52,7 +55,7 @@ export class LocationRepository {
 
   async getLocationCityByName(name: string): Promise<LocationCityModel | null> {
     try {
-      return await LocationCity.findOne({name})
+      return await LocationCity.findOne({ name });
     } catch (error) {
       // TODO: add error logging
       console.log(error);
@@ -62,7 +65,7 @@ export class LocationRepository {
 
   async deleteLocationCityByName(name: string): Promise<number | null> {
     try {
-      const deleteResult =  await LocationCity.deleteOne({name});
+      const deleteResult = await LocationCity.deleteOne({ name });
       return deleteResult.deletedCount ?? null;
     } catch (error) {
       // TODO: add error logging
@@ -73,10 +76,10 @@ export class LocationRepository {
 
   async getLocationCitiesPaginated(
     page: number,
-    limit: number
+    limit: number,
   ): Promise<PaginateResult<LocationCityModel> | null> {
     try {
-      return await LocationCity.paginate({}, { page, limit});
+      return await LocationCity.paginate({}, { page, limit });
     } catch (error) {
       // TODO: add error logging
       console.log(error);

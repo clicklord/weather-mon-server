@@ -2,21 +2,22 @@ import { WeatherProviderRepository } from '../../../repositories/weather-provide
 import { LocationRepository } from '../location/location.repository';
 
 export class WeatherService {
-
   private weatherProviderRepository: WeatherProviderRepository;
   private locationRepository: LocationRepository;
 
   constructor(
     weatherProviderRepository?: WeatherProviderRepository,
-    locationRepository?: LocationRepository
+    locationRepository?: LocationRepository,
   ) {
-    this.weatherProviderRepository = weatherProviderRepository ?? new WeatherProviderRepository();
+    this.weatherProviderRepository =
+      weatherProviderRepository ?? new WeatherProviderRepository();
     this.locationRepository = locationRepository ?? new LocationRepository();
   }
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   async getWeatherRealTime(cityName: string): Promise<any> {
-
-    const foundCity = await this.locationRepository.getLocationCityByName(cityName);
+    const foundCity = await this.locationRepository.getLocationCityByName(
+      cityName,
+    );
 
     if (!foundCity) return null;
 
@@ -31,8 +32,8 @@ export class WeatherService {
         'precipitation_type',
         'precipitation',
         'visibility',
-        'moon_phase'
-      ]
+        'moon_phase',
+      ],
     );
   }
 }

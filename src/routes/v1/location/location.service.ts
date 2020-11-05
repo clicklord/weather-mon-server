@@ -2,7 +2,6 @@ import { LocationRepository } from './location.repository';
 import { LocationCityModel } from '../../../database/models/location-city';
 
 export class LocationService {
-
   private locationRepository: LocationRepository;
 
   constructor(locationRepository?: LocationRepository) {
@@ -13,13 +12,13 @@ export class LocationService {
     cityName: string,
     descriptionCity: string,
     lat: number,
-    lon: number
+    lon: number,
   ): Promise<LocationCityModel | null> {
     return await this.locationRepository.createLocationCity(
       cityName,
       descriptionCity,
       lat,
-      lon
+      lon,
     );
   }
 
@@ -27,13 +26,13 @@ export class LocationService {
     cityName: string,
     descriptionCity: string,
     lat: number,
-    lon: number
+    lon: number,
   ): Promise<number> {
-    const updateResult =  await this.locationRepository.updateLocationCityByName(
+    const updateResult = await this.locationRepository.updateLocationCityByName(
       cityName,
       descriptionCity,
       lat,
-      lon
+      lon,
     );
 
     if (!updateResult) return 0;
@@ -45,13 +44,16 @@ export class LocationService {
 
   async getLocationCities(
     page: number,
-    size: number
-  ): Promise<{cities: LocationCityModel[]; total: number} | null> {
-    const findResult = await this.locationRepository.getLocationCitiesPaginated(page, size);
+    size: number,
+  ): Promise<{ cities: LocationCityModel[]; total: number } | null> {
+    const findResult = await this.locationRepository.getLocationCitiesPaginated(
+      page,
+      size,
+    );
 
     if (!findResult) return null;
 
-    return {cities: findResult.docs ?? [], total:findResult.total};
+    return { cities: findResult.docs ?? [], total: findResult.total };
   }
 
   async getLocationCity(cityName: string): Promise<LocationCityModel | null> {

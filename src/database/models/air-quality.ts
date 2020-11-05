@@ -12,20 +12,21 @@ export interface AirQualityModel extends mongoose.Document {
   updatedAt: Date;
 }
 
-const AirQualitySchema: mongoose.Schema = new mongoose.Schema({
-  locationCity: { 
-    type:  mongoose.Schema.Types.ObjectId,
-    ref: 'LocationCity',
-    required: true
+const AirQualitySchema: mongoose.Schema = new mongoose.Schema(
+  {
+    locationCity: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'LocationCity',
+      required: true,
+    },
+    epaIndex: { type: Number },
+    epaState: { type: String },
+    mepIndex: { type: Number },
+    mepState: { type: String },
   },
-  epaIndex: { type: Number },
-  epaState: { type: String },
-  mepIndex: { type: Number },
-  mepState: { type: String },
-},
-{ 
-  timestamps: true 
-}
+  {
+    timestamps: true,
+  },
 );
 
 AirQualitySchema.plugin(mongoosePaginate);

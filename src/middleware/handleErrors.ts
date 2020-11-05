@@ -8,7 +8,7 @@ export const handleErrors = (
   req: Request,
   res: Response,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  next: express.NextFunction
+  next: express.NextFunction,
 ): void => {
   let statusCode = 500;
   let message;
@@ -23,6 +23,6 @@ export const handleErrors = (
   res.status(statusCode).json({
     status: 'error',
     statusCode,
-    message
+    message,
   });
 };

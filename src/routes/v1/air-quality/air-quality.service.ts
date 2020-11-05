@@ -2,21 +2,22 @@ import { WeatherProviderRepository } from '../../../repositories/weather-provide
 import { LocationRepository } from '../location/location.repository';
 
 export class AirQualityService {
-
   private weatherProviderRepository: WeatherProviderRepository;
   private locationRepository: LocationRepository;
 
   constructor(
     weatherProviderRepository?: WeatherProviderRepository,
-    locationRepository?: LocationRepository
+    locationRepository?: LocationRepository,
   ) {
-    this.weatherProviderRepository = weatherProviderRepository ?? new WeatherProviderRepository();
+    this.weatherProviderRepository =
+      weatherProviderRepository ?? new WeatherProviderRepository();
     this.locationRepository = locationRepository ?? new LocationRepository();
   }
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   async getAirQualityRealTime(cityName: string): Promise<any> {
-
-    const foundCity = await this.locationRepository.getLocationCityByName(cityName);
+    const foundCity = await this.locationRepository.getLocationCityByName(
+      cityName,
+    );
 
     if (!foundCity) return null;
 
@@ -33,8 +34,8 @@ export class AirQualityService {
         'epa_aqi',
         'epa_health_concern',
         'china_aqi',
-        'china_health_concern'
-      ]
+        'china_health_concern',
+      ],
     );
   }
 }

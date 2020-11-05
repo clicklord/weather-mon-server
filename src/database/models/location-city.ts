@@ -12,23 +12,27 @@ export interface LocationCityModel extends mongoose.Document {
   updatedAt: Date;
 }
 
-const LocationCitySchema: mongoose.Schema = new mongoose.Schema({
-  name: { type: String, required: true, unique: true},
-  description: { type: String },
-  location: {
-    type: { 
-      type: String,
-      enum: ['Point']
+const LocationCitySchema: mongoose.Schema = new mongoose.Schema(
+  {
+    name: { type: String, required: true, unique: true },
+    description: { type: String },
+    location: {
+      type: {
+        type: String,
+        enum: ['Point'],
+      },
+      coordinates: [],
     },
-    coordinates: []
-  }
-},
-{ 
-  timestamps: true 
-}
+  },
+  {
+    timestamps: true,
+  },
 );
 
 LocationCitySchema.index({ location: '2dsphere' });
 LocationCitySchema.plugin(mongoosePaginate);
 
-export default mongoose.model<LocationCityModel>('LocationCity', LocationCitySchema);
+export default mongoose.model<LocationCityModel>(
+  'LocationCity',
+  LocationCitySchema,
+);

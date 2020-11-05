@@ -25,8 +25,8 @@ app.use(
   bodyParser.urlencoded({
     limit: '10mb',
     extended: true,
-    parameterLimit: 50000
-  })
+    parameterLimit: 50000,
+  }),
 );
 app.use(cors({ origin: corsUrl, optionsSuccessStatus: 200 }));
 
@@ -34,7 +34,9 @@ app.use(cors({ origin: corsUrl, optionsSuccessStatus: 200 }));
 app.use('/api/v1', routesV1);
 
 // catch 404 and forward to error handler
-app.use((req: Request, res: Response, next) => next(new NotFoundError('Path not found')));
+app.use((req: Request, res: Response, next) =>
+  next(new NotFoundError('Path not found')),
+);
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 app.use(handleErrors);
